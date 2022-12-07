@@ -1,5 +1,7 @@
+using Flurl.Http;
 using System.Data;
 using System.Drawing;
+using System.IO;
 
 namespace IHM
 {
@@ -36,7 +38,7 @@ namespace IHM
             listView1.Items.AddRange(new ListViewItem[] { item1, item2, item3, item4 });
         }
 
-       
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -50,9 +52,15 @@ namespace IHM
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var path = openFileDialog1.FileName;
+                var url = "http://localhost:5229/Upload";
+
+                url.PostMultipartAsync(mp => mp 
+                    .AddFile("file", path)
+                    );
+
+
+
             }
-
-
         }
 
 
