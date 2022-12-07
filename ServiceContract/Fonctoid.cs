@@ -2,8 +2,8 @@
 {
      public abstract class Fonctoid
     {
-        protected List<string> SrcCols { get; set; }
-        protected List<string> OuttCols { get; set; }
-        protected abstract void Proceed();
+        public List<string> SrcCols { get; set; }
+        public List<string> OutCols { get; set; }
+        public abstract void Proceed();
     }
 }
