@@ -11,9 +11,8 @@ namespace DAL
     {
         public static readonly Char[] columnSeparators = new Char[] { ',', ';', '.' };
 
-        public static DataTable ReadCsvAsDataTable(string filePath)
+        public static DataTable ReadCsvData(string filePath)
         {
-            // Vérifier si le fichier existe
             if (!File.Exists(filePath))
             {
                 throw new FileNotFoundException("Le fichier spécifié n'existe pas.");
@@ -26,7 +25,8 @@ namespace DAL
             using (StreamReader reader = new StreamReader(filePath))
             {
                 // Lire la première ligne pour obtenir les noms de colonnes
-                string[] columnNames = reader.ReadLine().Split(columnSeparators);
+                string[] columnNames = reader.ReadLine()
+                                             .Split(columnSeparators);
 
                 // Ajouter les colonnes au DataTable
                 foreach (string columnName in columnNames)
@@ -50,33 +50,20 @@ namespace DAL
             return csvData;
         }
         
-        public static DataTable ReadColumnCsvAsDataTable(string filePath)
+        public static List<String> GetColumnNames(String filePath)
         {
-            // Vérifier si le fichier existe
             if (!File.Exists(filePath))
             {
                 throw new FileNotFoundException("Le fichier spécifié n'existe pas.");
             }
 
-            // Créer un nouveau DataTable pour stocker les données du fichier CSV
-            var csvData = new DataTable();
-
-            // Utiliser un StreamReader pour lire le fichier ligne par ligne
+            List<String> columnNames = new List<String>();
             using (StreamReader reader = new StreamReader(filePath))
             {
-                // Lire la première ligne pour obtenir les noms de colonnes
-                string[] columnNames = reader.ReadLine().Split(columnSeparators);
-
-                // Ajouter les colonnes au DataTable
-                foreach (string columnName in columnNames)
-                {
-                    csvData.Columns.Add(columnName);
-                }
-
+                columnNames = reader.ReadLine().Split(columnSeparators).ToList();
             }
 
-            // Renvoyer le DataTable construit
-            return csvData;
+            return columnNames;
         }
     }
     
