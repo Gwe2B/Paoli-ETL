@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DAL;
+using Microsoft.AspNetCore.Mvc;
 using System.Web;
 
 namespace Host.Controllers
@@ -9,8 +10,7 @@ namespace Host.Controllers
     {
         [HttpPost]
         public async Task<IActionResult> UploadFile( IFormFile file )
-        {
-            
+        {         
            
             // Save the file to the server
             // (You can specify a different path or handle the file in a different way)
@@ -20,7 +20,11 @@ namespace Host.Controllers
                 await file.CopyToAsync(stream);
             }
 
+            var columns = CsvUtils.GetColumnNames(path);
+
             return Ok();
         }
+
+       
     }
 }

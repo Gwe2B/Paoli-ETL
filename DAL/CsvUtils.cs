@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class CsvUtils
+    public static class CsvUtils
     {
         public static readonly Char[] columnSeparators = new Char[] { ',', ';', '.' };
 
