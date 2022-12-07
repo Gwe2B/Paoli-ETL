@@ -49,5 +49,35 @@ namespace DAL
             // Renvoyer le DataTable construit
             return csvData;
         }
+        
+        public static DataTable ReadColumnCsvAsDataTable(string filePath)
+        {
+            // Vérifier si le fichier existe
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("Le fichier spécifié n'existe pas.");
+            }
+
+            // Créer un nouveau DataTable pour stocker les données du fichier CSV
+            var csvData = new DataTable();
+
+            // Utiliser un StreamReader pour lire le fichier ligne par ligne
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                // Lire la première ligne pour obtenir les noms de colonnes
+                string[] columnNames = reader.ReadLine().Split(columnSeparators);
+
+                // Ajouter les colonnes au DataTable
+                foreach (string columnName in columnNames)
+                {
+                    csvData.Columns.Add(columnName);
+                }
+
+            }
+
+            // Renvoyer le DataTable construit
+            return csvData;
+        }
     }
+    
 }
